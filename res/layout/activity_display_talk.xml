@@ -1,0 +1,212 @@
+<!--
+    Codebits
+    Copyright (C) 2012 Henrique Rocha <hmrocha@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/h2_talk_title"
+            android:textColor="#E3E3E3"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_talk_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1"
+            android:text="@string/example_talk_title"
+            android:textColor="#BBB" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_talk_title"
+            android:paddingTop="16dp"
+            android:text="@string/h3_talk_description"
+            android:textColor="#E3E3E3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_talk_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView3"
+            android:text="@string/example_talk_description"
+            android:textColor="#BBB" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_talk_description"
+            android:layout_marginTop="16dp"
+            android:text="@string/h3_proposed"
+            android:textColor="#E3E3E3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_proposed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView5"
+            android:text="@string/example_proposed"
+            android:textColor="#BBB" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_proposed"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/h2_talk_feedback_you_decide"
+            android:textColor="#E3E3E3"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/rate_it_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView9" >
+
+            <TextView
+                android:id="@+id/rate_it"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView9"
+                android:paddingTop="16dp"
+                android:text="@string/h3_rate_it"
+                android:textColor="#E3E3E3"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btn_vote_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/rate_it"
+                android:layout_below="@+id/rate_it"
+                android:onClick="onCallUpTalk"
+                android:src="@drawable/thumbsup" />
+
+            <ImageButton
+                android:id="@+id/btn_vote_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/btn_vote_up"
+                android:layout_toRightOf="@+id/rate_it"
+                android:onClick="onCallDownTalk"
+                android:src="@drawable/thumbsdown" />
+
+            <TextView
+                android:id="@+id/tv_user_vote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/btn_vote_down"
+                android:layout_toRightOf="@+id/btn_vote_down" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/login_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_below="@+id/rate_it_layout"
+            android:layout_marginTop="18dp"
+            android:text="@string/login_warning"
+            android:textColor="@color/orange_warning" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn_vote_up"
+            android:layout_below="@+id/textView7" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/this_talk_has" />
+
+            <TextView
+                android:id="@+id/tv_votes_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/example_talk_votes"
+                android:textColor="@color/white_votes_up"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/thumbs_up_and" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_votes_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_below="@+id/linearLayout"
+            android:paddingRight="3dp"
+            android:text="@string/example_talk_votes"
+            android:textColor="@color/red_votes_down" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toRightOf="@+id/tv_votes_down"
+            android:text="@string/thumbs_down_so_far" />
+    </RelativeLayout>
+
+</ScrollView>

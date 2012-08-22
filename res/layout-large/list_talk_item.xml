@@ -1,0 +1,79 @@
+<!--
+    Codebits
+    Copyright (C) 2012 Henrique Rocha <hmrocha@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/talk_background"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/padding_medium"
+    android:paddingRight="@dimen/padding_medium"
+    android:background="#ff030501" >
+
+    <TextView
+        android:id="@+id/talk_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/example_talk_title"
+        android:textColor="#82BA51"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/talk_votes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/talk_title"
+        android:text="@string/example_talk_votes"
+        android:textColor="@color/cb_white" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/talk_title"
+        android:layout_toRightOf="@+id/talk_votes"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="@string/votes"
+        android:textColor="@color/cb_white" />
+
+    <TextView
+        android:id="@+id/talk_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="@string/example_talk_author"
+        android:textColor="#2AA198"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/talk_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/talk_title"
+        android:text="@string/example_talk_number"
+        android:textColor="@color/cb_white"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

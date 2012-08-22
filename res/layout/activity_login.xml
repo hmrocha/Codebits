@@ -1,0 +1,83 @@
+<!--
+    Codebits
+    Copyright (C) 2012 Henrique Rocha <hmrocha@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_email" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_email"
+        android:text="@string/label_password" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/CodebitsButton"
+        android:layout_below="@+id/et_password"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLogin"
+        android:text="@string/btn_login" />
+
+    <Button
+        android:id="@+id/btn_nologin"
+        style="@style/CodebitsButton"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:onClick="onEnterWithoutLogin"
+        android:text="@string/btn_nologin" />
+
+    <TextView
+        android:id="@+id/tv_login_failed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_nologin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/login_failed"
+        android:textColor="@color/orange_warning"
+        android:visibility="gone" />
+
+</RelativeLayout>

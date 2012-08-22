@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Codebits
+    Copyright (C) 2012 Henrique Rocha <hmrocha@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+-->
+
+<resources>
+
+    <color name="cb_white">#FFF9F9F9</color>
+    <color name="dark_grey">#1f1f1f</color>
+    <color name="light_grey">#323232</color>
+    <color name="dark_green">#5bac52</color>
+    <color name="green">#204c1c</color>
+    <color name="green_pressed">#204c1c</color>
+    <color name="green_focused">#192D08</color>
+    <color name="red_unrated">#DC322F</color>
+    <color name="green_rated">#859900</color>
+    <color name="white_votes_up">#FFFFD9</color>
+    <color name="red_votes_down">#ff0000</color>
+    <color name="orange_warning">#CB4B16</color>
+
+</resources>

@@ -1,0 +1,56 @@
+<!--
+    Codebits
+    Copyright (C) 2012 Henrique Rocha <hmrocha@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+-->
+
+<resources>
+
+    <string name="app_name">SAPO Codebits 2012</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Talk Description -->
+    <string name="votes">votes</string>
+    <string name="h2_talk_title">Talk title</string>
+    <string name="h3_talk_description">Talk description</string>
+    <string name="h3_proposed">Proposed</string>
+    <string name="h3_rate_it">Rate it</string>
+    <string name="h2_talk_feedback_you_decide">Talk feedback. You decide.</string>
+    <string name="talk_votes">This talk has *up* thumbs up, and *down* thumbs down so far.</string>
+    <string name="login_warning">You need to be registered and logged in to comment or rate this talk proposal.</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_password">Password</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_nologin">ENTER WITHOUT LOGIN</string>
+    <string name="login_failed">There\'s been an error with your login. Have you registered already?</string>
+    <string name="rated">rated</string>
+    <string name="unrated">unrated</string>
+    <string name="this_talk_has">This talk has</string>
+    <string name="thumbs_up_and">thumbs up, and</string>
+    <string name="thumbs_down_so_far">thumbs down so far.</string>
+    <string name="you_voted_up">You voted up</string>
+    <string name="you_voted_down">You voted down</string>
+
+    <!-- Example strings to be able to use graphical editor. -->
+    <string name="example_talk_title">Bla bla bla whiskas saquetas</string>
+    <string name="example_talk_votes">800</string>
+    <string name="example_talk_author">Henrique Rocha</string>
+    <string name="example_talk_number">1</string>
+    <string name="example_talk_description">Bla bla bla whiskas saquetas</string>
+    <string name="example_proposed">2012-07-31 12:54:14</string>
+    <string name="example_talk_unrated">unrated</string>
+    <string name="example_you_voted">You voted up/down</string>
+
+</resources>
