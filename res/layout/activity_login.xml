@@ -61,19 +61,11 @@
         android:onClick="onLogin"
         android:text="@string/btn_login" />
 
-    <Button
-        android:id="@+id/btn_nologin"
-        style="@style/CodebitsButton"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:onClick="onEnterWithoutLogin"
-        android:text="@string/btn_nologin" />
-
     <TextView
         android:id="@+id/tv_login_failed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_nologin"
+        android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="@string/login_failed"
