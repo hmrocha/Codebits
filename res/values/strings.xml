@@ -18,7 +18,7 @@
 
 <resources>
 
-    <string name="app_name">SAPO Codebits 2012</string>
+    <string name="app_name">sapo codebits</string>
     <string name="menu_settings">Settings</string>
 
     <!-- Talk Description -->
