@@ -24,10 +24,10 @@
     <color name="dark_grey">#1f1f1f</color>
     <color name="light_grey">#323232</color>
     <color name="dark_green">#5bac52</color>
-    <color name="green">#204c1c</color>
+    <color name="green">#5bac52</color>
     <color name="green_pressed">#204c1c</color>
-    <color name="green_focused">#192D08</color>
-    <color name="red_unrated">#DC322F</color>
+    <color name="green_focused">#d4ffb6</color>
+    <color name="red_unrated">#ff0000</color>
     <color name="green_rated">#859900</color>
     <color name="white_votes_up">#FFFFD9</color>
     <color name="red_votes_down">#ff0000</color>
