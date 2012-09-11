@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/textView3"
+            android:autoLink="web"
             android:text="@string/example_talk_description"
             android:textColor="#BBB" />
 
