@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 public class DisplayTalkActivity extends SherlockActivity {
     private Context context;
@@ -42,13 +43,14 @@ public class DisplayTalkActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_talk);
-
         context = this;
         Intent intent = getIntent();
         talk = intent.getParcelableExtra("talk");
+        getSupportActionBar().setTitle(talk.getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         token = getIntent().getStringExtra(LoginActivity.AUTH_TOKEN);
         TextView tv = (TextView) findViewById(R.id.tv_talk_title);
-        tv.setText(talk.getTitle());
+        tv.setText(talk.getTitle().toUpperCase());
         tv = (TextView) findViewById(R.id.tv_talk_description);
         tv.setText(talk.getDescription());
         tv = (TextView) findViewById(R.id.tv_proposed);
@@ -62,14 +64,14 @@ public class DisplayTalkActivity extends SherlockActivity {
         if ("up".equals(rate)) {
             tvUserVote.setText(R.string.you_voted_up);
         } else if ("down".equals(rate)) {
-            tvUserVote.setText(R.string.you_voted_down);            
+            tvUserVote.setText(R.string.you_voted_down);
         }
         if (token == null) {
             findViewById(R.id.login_warning).setVisibility(View.VISIBLE);
             findViewById(R.id.rate_it_layout).setVisibility(View.GONE);
         } else {
             findViewById(R.id.login_warning).setVisibility(View.GONE);
-            findViewById(R.id.rate_it_layout).setVisibility(View.VISIBLE);            
+            findViewById(R.id.rate_it_layout).setVisibility(View.VISIBLE);
         }
     }
 
@@ -114,6 +116,13 @@ public class DisplayTalkActivity extends SherlockActivity {
                 tvUserVote.setTextColor(res.getColor(R.color.red_votes_down));
             }
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (android.R.id.home == item.getItemId()) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

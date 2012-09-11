@@ -115,7 +115,7 @@
         android:layout_height="wrap_content"
         android:background="@color/light_grey"
         android:ellipsize="end"
-        android:maxLines="10"
+        android:maxLines="2"
         android:paddingBottom="@dimen/padding_medium"
         android:paddingLeft="@dimen/padding_medium"
         android:paddingRight="@dimen/padding_medium"
