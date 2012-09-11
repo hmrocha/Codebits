@@ -30,8 +30,8 @@
     <string name="h2_talk_feedback_you_decide">Talk feedback. You decide.</string>
     <string name="talk_votes">This talk has *up* thumbs up, and *down* thumbs down so far.</string>
     <string name="login_warning">You need to be registered and logged in to comment or rate this talk proposal.</string>
-    <string name="label_email">E-mail</string>
-    <string name="label_password">Password</string>
+    <string name="label_email">E-MAIL</string>
+    <string name="label_password">PASSWORD</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_nologin">ENTER WITHOUT LOGIN</string>
     <string name="login_failed">There\'s been an error with your login. Have you registered already?</string>

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,8 @@ public class LoginActivity extends SherlockActivity {
     private static final String DEBUG_TAG = LoginActivity.class.getSimpleName();
 
     public static final String AUTH_TOKEN = "authtoken";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PASSWORD = "password";
 
     private TextView tvEmail;
     private TextView tvPassword;
@@ -54,13 +57,14 @@ public class LoginActivity extends SherlockActivity {
         setContentView(R.layout.activity_login);
         setProgressBarIndeterminateVisibility(false);
         this.context = this;
+        
         this.tvEmail = (TextView) findViewById(R.id.et_email);
         this.tvPassword = (TextView) findViewById(R.id.et_password);
         this.tvLoginFailed = (TextView) findViewById(R.id.tv_login_failed);
-    }
-
-    public void onEnterWithoutLogin(View v) {
-        startActivity(new Intent(this, MainActivity.class));
+        
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        this.tvEmail.setText(settings.getString(KEY_EMAIL, ""));
+        this.tvPassword.setText(settings.getString(KEY_PASSWORD, ""));
     }
 
     public void onLogin(View v) {
@@ -105,6 +109,11 @@ public class LoginActivity extends SherlockActivity {
             } else {
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra(LoginActivity.AUTH_TOKEN, token);
+                SharedPreferences settings = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(KEY_EMAIL, tvEmail.getText().toString());
+                editor.putString(KEY_PASSWORD, tvPassword.getText().toString());
+                editor.commit();
                 startActivity(intent);
             }
         }
