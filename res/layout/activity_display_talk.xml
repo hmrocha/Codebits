@@ -19,47 +19,31 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/light_grey" >
 
     <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
-            android:text="@string/h2_talk_title"
-            android:textColor="#E3E3E3"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        android:padding="16dp" >
 
         <TextView
             android:id="@+id/tv_talk_title"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
+            android:layout_marginBottom="@dimen/padding_medium"
+            android:background="@drawable/rounded_bg"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_small"
             android:text="@string/example_talk_title"
-            android:textColor="#BBB" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv_talk_title"
-            android:paddingTop="16dp"
-            android:text="@string/h3_talk_description"
-            android:textColor="#E3E3E3"
-            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -67,10 +51,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/tv_talk_title"
             android:autoLink="web"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
             android:text="@string/example_talk_description"
-            android:textColor="#BBB" />
+            android:textColor="@android:color/white"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/textView5"
@@ -172,7 +159,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/this_talk_has" />
+                android:text="@string/this_talk_has"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/tv_votes_up"
@@ -188,7 +176,8 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/thumbs_up_and" />
+                android:text="@string/thumbs_up_and"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <TextView
@@ -207,7 +196,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"
             android:layout_toRightOf="@+id/tv_votes_down"
-            android:text="@string/thumbs_down_so_far" />
+            android:text="@string/thumbs_down_so_far"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </ScrollView>
