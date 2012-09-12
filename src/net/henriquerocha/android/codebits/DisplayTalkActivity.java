@@ -19,16 +19,28 @@
 package net.henriquerocha.android.codebits;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 
+import net.henriquerocha.android.codebits.api.Comment;
 import net.henriquerocha.android.codebits.api.Methods;
 import net.henriquerocha.android.codebits.api.Talk;
+import net.henriquerocha.android.codebits.api.TalksCommentsXmlParser;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -37,11 +49,14 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
 public class DisplayTalkActivity extends SherlockActivity implements ActionBar.TabListener {
+    private static final String TAG = DisplayTalkActivity.class.getSimpleName();
     private Context context;
     private Talk talk;
     private String token;
     private TextView tvUserVote;
-
+    
+    private List<Comment> comments = null;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,20 +157,84 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        // TODO Auto-generated method stub
-
+        if ("TALK".equals(tab.getText())) {
+            setContentView(R.layout.activity_display_talk);
+        }
+        if ("COMMENTS".equals(tab.getText())) {
+            new DownloadXmlTask().execute("https://codebits.eu/rss/proposal/" + talk.getId());
+        }
     }
 
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
-        // TODO Auto-generated method stub
+    }
 
+    private String loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+        InputStream stream = null;
+        TalksCommentsXmlParser xmlParser = new TalksCommentsXmlParser();
+        
+
+        try {
+            stream = downloadUrl(urlString);
+            comments = xmlParser.parse(stream);
+        } finally {
+            if (stream != null) {
+                stream.close();
+            }
+        }
+
+        StringBuilder htmlString = new StringBuilder();
+        for (Comment comment : comments) {
+            htmlString.append(comment.toString());
+            htmlString.append("\n");
+        }
+        return htmlString.toString();
+    }
+
+    // Given a string representation of a URL, sets up a connection and gets
+    // an input stream.
+    private InputStream downloadUrl(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(10000 /* milliseconds */);
+        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+        conn.connect();
+        InputStream stream = conn.getInputStream();
+        return stream;
+    }
+
+    // Implementation of AsyncTask used to download XML feed from codebits.eu
+    private class DownloadXmlTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                return loadXmlFromNetwork(urls[0]);
+            } catch (IOException e) {
+                return "IOException"; // getResources().getString(R.string.connection_error);
+            } catch (XmlPullParserException e) {
+                return "XmlPullParserException"; // getResources().getString(R.string.xml_error);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            setContentView(R.layout.comments);
+            String[] commentsArray = new String[comments.size()];
+            int i = 0;
+            for (Comment c : comments) {
+                commentsArray[i++] = c.toString();
+            }
+            ListView lv = (ListView) findViewById(R.id.comments_list);
+            lv.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, commentsArray));
+            Log.d(TAG, result);
+        }
     }
 
 }
