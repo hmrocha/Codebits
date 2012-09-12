@@ -27,13 +27,16 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class DisplayTalkActivity extends SherlockActivity {
+public class DisplayTalkActivity extends SherlockActivity implements ActionBar.TabListener {
     private Context context;
     private Talk talk;
     private String token;
@@ -43,6 +46,18 @@ public class DisplayTalkActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_talk);
+
+        // Set up tabs
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.Tab tab = getSupportActionBar().newTab();
+        tab.setText("TALK");
+        tab.setTabListener(this);
+        getSupportActionBar().addTab(tab);
+        tab = getSupportActionBar().newTab();
+        tab.setText("COMMENTS");
+        tab.setTabListener(this);
+        getSupportActionBar().addTab(tab);
+
         context = this;
         Intent intent = getIntent();
         talk = intent.getParcelableExtra("talk");
@@ -123,6 +138,24 @@ public class DisplayTalkActivity extends SherlockActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
+
     }
 
 }
