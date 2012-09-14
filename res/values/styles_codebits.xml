@@ -33,6 +33,8 @@
         <item name="android:actionDropDownStyle">@style/codebits_DropDownNav</item>
         <item name="android:actionBarStyle">@style/codebits_transparent_ActionBar</item>
         <item name="android:panelBackground">@drawable/menu_hardkey_panel_codebits</item>
+        
+        
     </style>
 
     <style name="codebits_solid_ActionBar" parent="@style/Widget.Sherlock.ActionBar.Solid">
@@ -79,6 +81,23 @@
     
     <style name="codebits_ProgressBar" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_codebits</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.codebits.widget" parent="@style/Theme.Sherlock">
+        <item name="popupMenuStyle">@style/codebits_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/codebits_DropDownListView</item>
+        
+        <item name="android:popupMenuStyle">@style/codebits_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/codebits_DropDownListView</item>
+    </style>    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="codebits_DropDownItem" parent="@style/Widget.Sherlock.Light.DropDownItem.Spinner">
+        <item name="android:textAppearance">?android:attr/textAppearanceInverse</item>
+    </style>
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="codebits_SpinnerItem" parent="@style/Widget.Sherlock.TextView.SpinnerItem">
+        <item name="android:textAppearance">?android:attr/textAppearanceInverse</item>
     </style>
 
 </resources>

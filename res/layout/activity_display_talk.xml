@@ -29,31 +29,11 @@
         android:padding="16dp" >
 
         <TextView
-            android:id="@+id/tv_talk_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="@dimen/padding_medium"
-            android:background="@drawable/rounded_bg"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:paddingBottom="@dimen/padding_small"
-            android:paddingLeft="@dimen/padding_medium"
-            android:paddingRight="@dimen/padding_medium"
-            android:paddingTop="@dimen/padding_small"
-            android:text="@string/example_talk_title"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/tv_talk_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv_talk_title"
             android:autoLink="web"
-            android:paddingLeft="@dimen/padding_medium"
             android:paddingRight="@dimen/padding_medium"
             android:text="@string/example_talk_description"
             android:textColor="@android:color/white"

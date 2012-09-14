@@ -50,6 +50,10 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class DisplayTalkActivity extends SherlockActivity implements ActionBar.TabListener {
     private static final String TAG = DisplayTalkActivity.class.getSimpleName();
+
+    private static final String ABSTRACT_TAB = "ABSTRACT";
+    private static final String COMMENTS_TAB = "COMMENTS";
+    
     private Context context;
     private Talk talk;
     private String token;
@@ -65,11 +69,11 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
         // Set up tabs
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         ActionBar.Tab tab = getSupportActionBar().newTab();
-        tab.setText("TALK");
+        tab.setText(ABSTRACT_TAB);
         tab.setTabListener(this);
         getSupportActionBar().addTab(tab);
         tab = getSupportActionBar().newTab();
-        tab.setText("COMMENTS");
+        tab.setText(COMMENTS_TAB);
         tab.setTabListener(this);
         getSupportActionBar().addTab(tab);
 
@@ -79,9 +83,7 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
         getSupportActionBar().setTitle(talk.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         token = getIntent().getStringExtra(LoginActivity.AUTH_TOKEN);
-        TextView tv = (TextView) findViewById(R.id.tv_talk_title);
-        tv.setText(talk.getTitle().toUpperCase());
-        tv = (TextView) findViewById(R.id.tv_talk_description);
+        TextView tv = (TextView) findViewById(R.id.tv_talk_description);
         tv.setText(talk.getDescription());
         tv = (TextView) findViewById(R.id.tv_proposed);
         tv.setText(talk.getProposed());
@@ -157,10 +159,10 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
 
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        if ("TALK".equals(tab.getText())) {
+        if (ABSTRACT_TAB.equals(tab.getText())) {
             setContentView(R.layout.activity_display_talk);
         }
-        if ("COMMENTS".equals(tab.getText())) {
+        if (COMMENTS_TAB.equals(tab.getText())) {
             new DownloadXmlTask().execute("https://codebits.eu/rss/proposal/" + talk.getId());
         }
     }

@@ -45,11 +45,12 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
     static class ViewHolder {
         TextView title;
         TextView votes;
+        TextView votesUp;
+        TextView votesDown;
         TextView author;
         TextView number;
         TextView rated;
         TextView description;
-//        View background;
     }
 
     @Override
@@ -64,22 +65,22 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.title = (TextView) rowView.findViewById(R.id.talk_title);
             viewHolder.votes = (TextView) rowView.findViewById(R.id.talk_votes);
+            viewHolder.votesUp = (TextView) rowView.findViewById(R.id.talk_votes_up);
+            viewHolder.votesDown = (TextView) rowView.findViewById(R.id.talk_votes_down);
             viewHolder.author = (TextView) rowView.findViewById(R.id.talk_author);
             viewHolder.number = (TextView) rowView.findViewById(R.id.talk_number);
             viewHolder.rated = (TextView) rowView.findViewById(R.id.talk_rated);
             viewHolder.description = (TextView) rowView.findViewById(R.id.talk_description);
-//            viewHolder.background = rowView.findViewById(R.id.talk_background);
             rowView.setTag(viewHolder);
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
 
-//        int color = position % 2 == 0 ? 0xff030501 : 0xff031006;
-//        holder.background.setBackgroundColor(color);
-//
         Talk talk = this.talks.get(position);
-        holder.title.setText(talk.getTitle().toUpperCase());
+        holder.title.setText(talk.getTitle());
         holder.votes.setText(String.valueOf(talk.getVotes()));
+        holder.votesUp.setText(String.valueOf(talk.getUpVotes()));
+        holder.votesDown.setText(String.valueOf(talk.getDownVotes()));
         holder.author.setText(talk.getAuthor());
         holder.description.setText(talk.getDescription());
         if (holder.number != null) {
@@ -92,8 +93,7 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
             holder.rated.setText(talk.isRated() ? res.getString(R.string.rated) : res
                     .getString(R.string.unrated));
             holder.rated.setVisibility(View.VISIBLE);
-        } 
-        else {
+        } else {
             if (holder.rated != null) {
                 holder.rated.setVisibility(View.GONE);
             }
