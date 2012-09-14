@@ -19,6 +19,7 @@
 <resources>
 
     <string name="app_name">sapo codebits</string>
+    <string name="call_for_talks">CALL FOR TALKS LIST</string>
     <string name="menu_settings">Settings</string>
 
     <!-- Talk Description -->
