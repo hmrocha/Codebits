@@ -78,6 +78,13 @@ public class MainActivity extends SherlockListActivity {
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        this.talks = new ArrayList<Talk>();
+        new DownloadJsonTalksTask().execute(Methods.CALL_FOR_TALKS);
+    }
+
     private class DownloadJsonTalksTask extends AsyncTask<String, Void, String> {
 
         @Override
