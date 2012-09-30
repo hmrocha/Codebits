@@ -73,42 +73,48 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rate_it_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView9" >
+            android:layout_below="@+id/textView9"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/rate_it"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView9"
                 android:paddingTop="16dp"
                 android:text="@string/h3_rate_it"
                 android:textColor="#E3E3E3"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/btn_vote_up"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/rate_it"
-                android:layout_below="@+id/rate_it"
+                android:layout_marginBottom="8dp"
+                android:background="#9DCE62"
+                android:drawableLeft="@drawable/thumbsup"
                 android:onClick="onCallUpTalk"
-                android:src="@drawable/thumbsup" />
+                android:padding="4dp"
+                android:text="VOTE UP"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/btn_vote_down"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/btn_vote_up"
-                android:layout_toRightOf="@+id/rate_it"
+                android:background="#9DCE62"
+                android:drawableLeft="@drawable/thumbsdown"
                 android:onClick="onCallDownTalk"
-                android:src="@drawable/thumbsdown" />
+                android:padding="4dp"
+                android:text="VOTE DOWN"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_user_vote"
@@ -116,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/btn_vote_down"
                 android:layout_toRightOf="@+id/btn_vote_down" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/login_warning"
