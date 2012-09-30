@@ -55,7 +55,8 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginLeft="@dimen/padding_medium"
-            android:src="@drawable/luis_correia" />
+            android:src="@drawable/luis_correia"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -108,9 +109,9 @@
                 android:id="@+id/talk_votes_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/talk_votes_up"
                 android:layout_marginLeft="@dimen/padding_medium"
                 android:layout_toRightOf="@+id/talk_votes_up"
-                android:layout_alignBaseline="@+id/talk_votes_up"
                 android:drawableLeft="@drawable/thumbsdown"
                 android:text="@string/example_talk_votes"
                 android:textColor="@color/red_votes_down" />
@@ -136,7 +137,7 @@
         android:paddingBottom="@dimen/padding_medium"
         android:paddingLeft="@dimen/padding_medium"
         android:paddingRight="@dimen/padding_medium"
-        android:text="Bla bla bla whiskas saquetas"
+        android:text="@string/example_talk_description"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 

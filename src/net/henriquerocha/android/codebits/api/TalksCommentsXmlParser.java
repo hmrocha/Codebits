@@ -103,7 +103,7 @@ public class TalksCommentsXmlParser {
                 skip(parser);
             }
         }
-        return new Comment(summary, title);
+        return new Comment(summary.substring(0, summary.indexOf('<') - 1), title);
     }
 
     // Processes title tags in the feed.

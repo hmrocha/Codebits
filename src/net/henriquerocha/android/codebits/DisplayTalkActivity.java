@@ -39,7 +39,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -78,6 +77,10 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
         getSupportActionBar().addTab(tab);
 
         context = this;
+        showTalk();
+    }
+
+    private void showTalk() {
         Intent intent = getIntent();
         talk = intent.getParcelableExtra("talk");
         getSupportActionBar().setTitle(talk.getTitle());
@@ -161,6 +164,7 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
         if (ABSTRACT_TAB.equals(tab.getText())) {
             setContentView(R.layout.activity_display_talk);
+            showTalk();
         }
         if (COMMENTS_TAB.equals(tab.getText())) {
             new DownloadXmlTask().execute("https://codebits.eu/rss/proposal/" + talk.getId());
@@ -228,13 +232,8 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
         @Override
         protected void onPostExecute(String result) {
             setContentView(R.layout.comments);
-            String[] commentsArray = new String[comments.size()];
-            int i = 0;
-            for (Comment c : comments) {
-                commentsArray[i++] = c.toString();
-            }
             ListView lv = (ListView) findViewById(R.id.comments_list);
-            lv.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, commentsArray));
+            lv.setAdapter(new CommentsArrayAdapter(context, comments));
             Log.d(TAG, result);
         }
     }
