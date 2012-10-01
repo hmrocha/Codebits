@@ -30,6 +30,7 @@ import org.json.JSONException;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -41,6 +42,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends SherlockListActivity {
     private static final String DEBUG_TAG = DownloadJsonTalksTask.class.getSimpleName();
@@ -58,7 +62,7 @@ public class MainActivity extends SherlockListActivity {
         setProgressBarIndeterminateVisibility(false);
         this.context = this;
         this.talks = new ArrayList<Talk>();
-        this.token = getIntent().getStringExtra(LoginActivity.AUTH_TOKEN);
+        this.token = getIntent().getStringExtra(Constants.AUTH_TOKEN);
 
         // textView = (TextView) findViewById(R.id.talks);
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -72,12 +76,36 @@ public class MainActivity extends SherlockListActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, DisplayTalkActivity.class);
                 intent.putExtra("talk", talks.get(position));
-                intent.putExtra(LoginActivity.AUTH_TOKEN, token);
+                intent.putExtra(Constants.AUTH_TOKEN, token);
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sign_out:
+                SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.remove(Constants.KEY_EMAIL);
+                editor.remove(Constants.KEY_PASSWORD);
+                editor.commit();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     @Override
     protected void onRestart() {
         super.onRestart();

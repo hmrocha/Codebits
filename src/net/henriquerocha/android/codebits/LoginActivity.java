@@ -36,13 +36,13 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class LoginActivity extends SherlockActivity {
     private static final String DEBUG_TAG = LoginActivity.class.getSimpleName();
 
-    public static final String AUTH_TOKEN = "authtoken";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
 
     private TextView tvEmail;
     private TextView tvPassword;
@@ -62,9 +62,9 @@ public class LoginActivity extends SherlockActivity {
         this.tvPassword = (TextView) findViewById(R.id.et_password);
         this.tvLoginFailed = (TextView) findViewById(R.id.tv_login_failed);
         
-        SharedPreferences settings = getPreferences(MODE_PRIVATE);
-        this.tvEmail.setText(settings.getString(KEY_EMAIL, ""));
-        this.tvPassword.setText(settings.getString(KEY_PASSWORD, ""));
+        SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
+        this.tvEmail.setText(settings.getString(Constants.KEY_EMAIL, ""));
+        this.tvPassword.setText(settings.getString(Constants.KEY_PASSWORD, ""));
     }
 
     public void onLogin(View v) {
@@ -108,11 +108,11 @@ public class LoginActivity extends SherlockActivity {
                 tvLoginFailed.setVisibility(View.VISIBLE);
             } else {
                 Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra(LoginActivity.AUTH_TOKEN, token);
-                SharedPreferences settings = getPreferences(MODE_PRIVATE);
+                intent.putExtra(Constants.AUTH_TOKEN, token);
+                SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putString(KEY_EMAIL, tvEmail.getText().toString());
-                editor.putString(KEY_PASSWORD, tvPassword.getText().toString());
+                editor.putString(Constants.KEY_EMAIL, tvEmail.getText().toString());
+                editor.putString(Constants.KEY_PASSWORD, tvPassword.getText().toString());
                 editor.commit();
                 startActivity(intent);
             }

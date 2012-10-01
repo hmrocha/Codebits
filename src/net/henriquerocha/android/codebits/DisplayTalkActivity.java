@@ -85,7 +85,7 @@ public class DisplayTalkActivity extends SherlockActivity implements ActionBar.T
         talk = intent.getParcelableExtra("talk");
         getSupportActionBar().setTitle(talk.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        token = getIntent().getStringExtra(LoginActivity.AUTH_TOKEN);
+        token = getIntent().getStringExtra(Constants.AUTH_TOKEN);
         TextView tv = (TextView) findViewById(R.id.tv_talk_description);
         tv.setText(talk.getDescription());
         tv = (TextView) findViewById(R.id.tv_proposed);
