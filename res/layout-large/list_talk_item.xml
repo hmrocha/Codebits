@@ -16,64 +16,129 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/talk_background"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:gravity="center_vertical"
-    android:paddingLeft="@dimen/padding_medium"
-    android:paddingRight="@dimen/padding_medium"
-    android:background="#ff030501" >
+    android:layout_height="@dimen/talk_card_size"
+    android:layout_margin="@dimen/padding_small"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_medium" >
 
-    <TextView
-        android:id="@+id/talk_title"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/example_talk_title"
-        android:textColor="#82BA51"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:background="@color/light_grey"
+        android:paddingLeft="@dimen/padding_medium"
+        android:paddingRight="@dimen/padding_medium"
+        android:paddingTop="@dimen/padding_medium" >
+
+        <TextView
+            android:id="@+id/talk_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/example_talk_title"
+            android:textColor="@color/light_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:paddingBottom="@dimen/padding_medium"
+        android:paddingTop="@dimen/padding_medium" >
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginLeft="@dimen/padding_medium"
+            android:src="@drawable/luis_correia"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_medium" >
+
+            <TextView
+                android:id="@+id/talk_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_bg"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small"
+                android:text="@string/example_talk_author"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/talk_votes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/talk_author"
+                android:text="@string/example_talk_votes"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/talk_author"
+                android:layout_toRightOf="@+id/talk_votes"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/votes"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/talk_votes_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/talk_votes"
+                android:drawableLeft="@drawable/thumbsup"
+                android:text="@string/example_talk_votes"
+                android:textColor="@color/white_votes_up"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/talk_votes_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/talk_votes_up"
+                android:layout_marginLeft="@dimen/padding_medium"
+                android:layout_toRightOf="@+id/talk_votes_up"
+                android:drawableLeft="@drawable/thumbsdown"
+                android:text="@string/example_talk_votes"
+                android:textColor="@color/red_votes_down" />
+
+            <TextView
+                android:id="@+id/talk_rated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/talk_votes_up"
+                android:paddingRight="3dp"
+                android:text="@string/example_talk_unrated"
+                android:textColor="@color/red_unrated" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/talk_votes"
-        android:layout_width="wrap_content"
+        android:id="@+id/talk_description"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/talk_title"
-        android:text="@string/example_talk_votes"
-        android:textColor="@color/cb_white" />
+        android:background="@color/light_grey"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/padding_medium"
+        android:paddingLeft="@dimen/padding_medium"
+        android:paddingRight="@dimen/padding_medium"
+        android:text="@string/example_talk_description"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/talk_title"
-        android:layout_toRightOf="@+id/talk_votes"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:text="@string/votes"
-        android:textColor="@color/cb_white" />
-
-    <TextView
-        android:id="@+id/talk_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="@string/example_talk_author"
-        android:textColor="#2AA198"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/talk_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/talk_title"
-        android:text="@string/example_talk_number"
-        android:textColor="@color/cb_white"
-        android:textSize="36sp"
-        android:textStyle="bold" />
-
-</RelativeLayout>
+</LinearLayout>

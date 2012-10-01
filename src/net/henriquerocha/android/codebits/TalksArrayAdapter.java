@@ -48,7 +48,6 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
         TextView votesUp;
         TextView votesDown;
         TextView author;
-        TextView number;
         TextView rated;
         TextView description;
     }
@@ -68,7 +67,6 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
             viewHolder.votesUp = (TextView) rowView.findViewById(R.id.talk_votes_up);
             viewHolder.votesDown = (TextView) rowView.findViewById(R.id.talk_votes_down);
             viewHolder.author = (TextView) rowView.findViewById(R.id.talk_author);
-            viewHolder.number = (TextView) rowView.findViewById(R.id.talk_number);
             viewHolder.rated = (TextView) rowView.findViewById(R.id.talk_rated);
             viewHolder.description = (TextView) rowView.findViewById(R.id.talk_description);
             rowView.setTag(viewHolder);
@@ -83,9 +81,6 @@ public class TalksArrayAdapter extends ArrayAdapter<Talk> {
         holder.votesDown.setText(String.valueOf(talk.getDownVotes()));
         holder.author.setText(talk.getAuthor());
         holder.description.setText(talk.getDescription());
-        if (holder.number != null) {
-            holder.number.setText(String.valueOf(position + 1));
-        }
         Resources res = context.getResources();
         if (this.loggedIn && holder.rated != null) {
             holder.rated.setTextColor(talk.isRated() ? res.getColor(R.color.green_rated) : res
