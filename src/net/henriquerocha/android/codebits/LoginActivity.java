@@ -36,17 +36,15 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
 public class LoginActivity extends SherlockActivity {
     private static final String DEBUG_TAG = LoginActivity.class.getSimpleName();
 
-
+    private String token;
+    private String id;
+    
     private TextView tvEmail;
     private TextView tvPassword;
-    private String token;
     private TextView tvLoginFailed;
     private Context context;
 
@@ -96,9 +94,15 @@ public class LoginActivity extends SherlockActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            if (result == null) {
+                NetworkUtils.checkConnection(context);
+                setProgressBarIndeterminateVisibility(false);
+                return;
+            }
             try {
                 JSONObject json = new JSONObject(result);
                 token = json.getString("token");
+                id = json.getString("uid");
             } catch (JSONException e) {
                 Log.d(DEBUG_TAG, e.getMessage());
                 token = null;
@@ -113,6 +117,7 @@ public class LoginActivity extends SherlockActivity {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString(Constants.KEY_EMAIL, tvEmail.getText().toString());
                 editor.putString(Constants.KEY_PASSWORD, tvPassword.getText().toString());
+                editor.putString(Constants.KEY_USER_ID, id);
                 editor.commit();
                 startActivity(intent);
             }

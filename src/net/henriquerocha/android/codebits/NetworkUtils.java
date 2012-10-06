@@ -25,9 +25,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
+import android.widget.Toast;
+
 public class NetworkUtils {
 
-    private static final String DEBUG_TAG = NetworkUtils.class.getSimpleName();
+    private static final String TAG = "NetworkUtils";
 
     public static String downloadUrl(String urlString) throws IOException {
         URL url = null;
@@ -56,5 +62,20 @@ public class NetworkUtils {
             }
         }
         return result;
+    }
+
+    /**
+     * Simple network connection check.
+     * 
+     * @param context
+     */
+    public static void checkConnection(Context context) {
+        final ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
+            Toast.makeText(context, R.string.no_network_connection_toast, Toast.LENGTH_LONG).show();
+            Log.e(TAG, "checkConnection - no connection found");
+        }
     }
 }

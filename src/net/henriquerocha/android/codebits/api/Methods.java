@@ -24,13 +24,14 @@ import net.henriquerocha.android.codebits.NetworkUtils;
 import android.util.Log;
 
 public class Methods {
-    private static final String DEBUG_TAG = Methods.class.getSimpleName();
+    private static final String TAG = Methods.class.getSimpleName();
 
     public static final String SERVICES_URL = "https://services.sapo.pt/Codebits";
     public static final String CALL_FOR_TALKS = SERVICES_URL + "/calltalks";
     public static final String GET_TOKEN = SERVICES_URL + "/gettoken";
     public static final String CALL_UP_TALK = SERVICES_URL + "/calluptalk";
     public static final String CALL_DOWN_TALK = SERVICES_URL + "/calldowntalk";
+    public static final String USER = SERVICES_URL + "/user";
 
     /**
      * Auth token
@@ -50,19 +51,48 @@ public class Methods {
      */
     public static String getToken(String user, String password) throws IOException {
         String url = GET_TOKEN + "?user=" + user + "&password=" + password;
-        Log.d(DEBUG_TAG, "getToken: " + url);
         return NetworkUtils.downloadUrl(url);
     }
 
+    /**
+     * Vote up a proposed talk.
+     * 
+     * @param id
+     *            the talk ID
+     * @param token
+     *            auth token
+     * @throws IOException
+     */
     public static void callUpTalk(int id, String token) throws IOException {
-        String url = CALL_UP_TALK + "/" + id+ "?token=" + token;
-        Log.d(DEBUG_TAG, "callUpTalk: " + url);
+        String url = CALL_UP_TALK + "/" + id + "?token=" + token;
         NetworkUtils.downloadUrl(url);
     }
 
+    /**
+     * Vote down a proposed talk.
+     * 
+     * @param id
+     *            the talk ID
+     * @param token
+     *            auth token
+     * @throws IOException
+     */
     public static void callDownTalk(int id, String token) throws IOException {
         String url = CALL_DOWN_TALK + "/" + id + "?token=" + token;
-        Log.d(DEBUG_TAG, "callDownTalk: " + url);
         NetworkUtils.downloadUrl(url);
+    }
+
+    /**
+     * User's info
+     * 
+     * @param id
+     *            the talk ID
+     * @param token
+     *            auth token
+     */
+    public static String user(int id, String token) throws IOException {
+        String url = USER + "/" + id + "?token=" + token;
+        Log.d(TAG, "user: " + url);
+        return NetworkUtils.downloadUrl(url);
     }
 }

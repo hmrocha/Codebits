@@ -36,12 +36,12 @@ import android.util.Log;
 public class LauncherActivity extends Activity {
 
     private static final String TAG = "Launcher";
-    
+
     private String mEmail;
     private String mPassword;
     private String mToken;
     private Context mContext;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,7 @@ public class LauncherActivity extends Activity {
             new DownloadTokenTask().execute();
         }
     }
-    
+
     private class DownloadTokenTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -73,12 +73,14 @@ public class LauncherActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             Intent intent = null;
-            try {
-                JSONObject json = new JSONObject(result);
-                mToken = json.getString("token");
-            } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
-                mToken = null;
+            if (result != null) {
+                try {
+                    JSONObject json = new JSONObject(result);
+                    mToken = json.getString("token");
+                } catch (JSONException e) {
+                    Log.d(TAG, e.getMessage());
+                    mToken = null;
+                }
             }
             if (mToken == null) {
                 intent = new Intent(mContext, LoginActivity.class);
