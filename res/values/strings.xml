@@ -43,7 +43,9 @@
     <string name="thumbs_down_so_far">thumbs down so far.</string>
     <string name="you_voted_up">You voted up</string>
     <string name="you_voted_down">You voted down</string>
-
+    <string name="karma">Karma</string>
+    <string name="bio">Bio</string>
+    
     <!-- Example strings to be able to use graphical editor. -->
     <string name="example_talk_title">Bla bla bla whiskas saquetas</string>
     <string name="example_talk_votes">800</string>
@@ -53,6 +55,7 @@
     <string name="example_proposed">2012-07-31 12:54:14</string>
     <string name="example_talk_unrated">unrated</string>
     <string name="example_you_voted">You voted up/down</string>
+    <string name="example_karma_points">999</string>
     
     <string name="no_network_connection_toast">No network connection found</string>
     

@@ -22,39 +22,67 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import net.henriquerocha.android.codebits.api.Methods;
+import net.henriquerocha.android.codebits.api.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserActivity extends Activity {
+public class UserActivity extends CodebitsActivity {
     private static final String TAG = "UserActivity";
-    
+
     private String token;
     private String id;
-    
-    private TextView tvName;
-    
+
+    private TextView mTvName;
+    private TextView mTvKarmaPoints;
+    private TextView mTvBio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_user);
+        setUpActivity();
         setProgressBarIndeterminateVisibility(false);
-        this.token = getIntent().getStringExtra(Constants.AUTH_TOKEN);
-        this.tvName = (TextView) findViewById(R.id.name);
         SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
         id = settings.getString(Constants.KEY_USER_ID, "");
+        mActionBar.setSelectedNavigationItem(1);
         new DownloadUserTask().execute(Methods.USER);
+    }
+
+    private void setUpActivity() {
+        token = getIntent().getStringExtra(Constants.AUTH_TOKEN);
+        mTvName = (TextView) findViewById(R.id.name);
+        mTvKarmaPoints = (TextView) findViewById(R.id.karma_points);
+        mTvBio = (TextView) findViewById(R.id.bio);
+    }
+
+    public void showUser(User user) {
+        mTvName.setText(user.getName());
+        mTvKarmaPoints.setText(user.getKarma());
+        mTvBio.setText(user.getBio());
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        if (mMenu[itemPosition].equals("SCAN USER")) {
+            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, 0);
+        } else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(Constants.AUTH_TOKEN, mToken);
+            startActivity(intent);
+        }
+        return true;
     }
 
     private class DownloadUserTask extends AsyncTask<String, Void, String> {
@@ -82,11 +110,9 @@ public class UserActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             try {
-                Log.d(TAG, result);
-                tvName.setText(new JSONObject(result).getString("name"));
+                showUser(new User(new JSONObject(result)));
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
             }
             setProgressBarIndeterminateVisibility(false);
         }
@@ -97,7 +123,8 @@ public class UserActivity extends Activity {
         private int data = 0;
 
         public BitmapWorkerTask(ImageView imageView) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
+            // Use a WeakReference to ensure the ImageView can be garbage
+            // collected
             imageViewReference = new WeakReference<ImageView>(imageView);
         }
 
@@ -105,7 +132,7 @@ public class UserActivity extends Activity {
         @Override
         protected Bitmap doInBackground(Integer... params) {
             data = params[0];
-            return null; //decodeSampledBitmapFromResource(getResources(), data, 100, 100));
+            return null;
         }
 
         // Once complete, see if ImageView is still around and set bitmap.

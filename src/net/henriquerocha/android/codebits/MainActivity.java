@@ -27,65 +27,45 @@ import net.henriquerocha.android.codebits.api.Talk;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class MainActivity extends SherlockListActivity implements OnNavigationListener {
+public class MainActivity extends CodebitsActivity {
     private static final String TAG = DownloadJsonTalksTask.class.getSimpleName();
 
     // private TextView textView;
     private ArrayList<Talk> talks;
-    private ListActivity context;
-    private String token;
-    private String[] menu;
+
+    private ListView mLvTalksList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
         setProgressBarIndeterminateVisibility(false);
-        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.menu,
-                R.layout.sherlock_spinner_item);
-        this.menu = getResources().getStringArray(R.array.menu);
-        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(list, this);
-        actionBar.setDisplayShowTitleEnabled(false);
 
-        this.context = this;
         this.talks = new ArrayList<Talk>();
-        this.token = getIntent().getStringExtra(Constants.AUTH_TOKEN);
-
         // textView = (TextView) findViewById(R.id.talks);
         NetworkUtils.checkConnection(this);
         new DownloadJsonTalksTask().execute(Methods.CALL_FOR_TALKS);
-        getListView().setOnItemClickListener(new OnItemClickListener() {
+        mLvTalksList = (ListView) findViewById(R.id.talks_list);
+        mLvTalksList.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context, DisplayTalkActivity.class);
+                Intent intent = new Intent(MainActivity.this, DisplayTalkActivity.class);
                 intent.putExtra("talk", talks.get(position));
-                intent.putExtra(Constants.AUTH_TOKEN, token);
+                intent.putExtra(Constants.AUTH_TOKEN, mToken);
                 startActivity(intent);
             }
         });
@@ -135,8 +115,8 @@ public class MainActivity extends SherlockListActivity implements OnNavigationLi
             String result = null;
             try {
                 String url = urls[0];
-                if (token != null) {
-                    url += "?token=" + token;
+                if (mToken != null) {
+                    url += "?token=" + mToken;
                 }
                 result = NetworkUtils.downloadUrl(url);
             } catch (IOException e) {
@@ -155,23 +135,10 @@ public class MainActivity extends SherlockListActivity implements OnNavigationLi
             } catch (JSONException e) {
                 Log.d(TAG, e.getMessage());
             }
-            context.setListAdapter(new TalksArrayAdapter(context, talks, token != null));
+            mLvTalksList
+                    .setAdapter(new TalksArrayAdapter(MainActivity.this, talks, mToken != null));
             setProgressBarIndeterminateVisibility(false);
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (this.menu[itemPosition].equals("SCAN USER")) {
-            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, 0);
-        } else if (this.menu[itemPosition].equals("PROFILE")) {
-            Intent intent = new Intent(context, UserActivity.class);
-            intent.putExtra(Constants.AUTH_TOKEN, token);
-            startActivity(intent);
-        }
-        return false;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -191,4 +158,24 @@ public class MainActivity extends SherlockListActivity implements OnNavigationLi
             }
         }
     }
+    
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        if (mMenu[itemPosition].equals("SCAN USER")) {
+            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, 0);
+        } else if (mMenu[itemPosition].equals("PROFILE")) {        
+            Intent intent = new Intent(this, UserActivity.class);
+            intent.putExtra(Constants.AUTH_TOKEN, mToken);
+            startActivity(intent);
+        }
+//        else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            intent.putExtra(Constants.AUTH_TOKEN, mToken);
+//            startActivity(intent);
+//        }
+        return true;
+    }
+
 }
