@@ -18,22 +18,23 @@
 
 package net.henriquerocha.android.codebits;
 
-import java.io.IOException;
-import java.lang.ref.WeakReference;
+import java.net.URL;
 
 import net.henriquerocha.android.codebits.api.Methods;
 import net.henriquerocha.android.codebits.api.User;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class UserActivity extends CodebitsActivity {
@@ -41,21 +42,29 @@ public class UserActivity extends CodebitsActivity {
 
     private String token;
     private String id;
+    private String nick;
 
     private TextView mTvName;
     private TextView mTvKarmaPoints;
     private TextView mTvBio;
+    private RelativeLayout mLayout;
+    private ImageView mIvAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         setUpActivity();
-        setProgressBarIndeterminateVisibility(false);
+        setProgressBarIndeterminateVisibility(true);
         SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
         id = settings.getString(Constants.KEY_USER_ID, "");
+        nick = getIntent().getStringExtra(Constants.KEY_USER_NICK);
         mActionBar.setSelectedNavigationItem(1);
-        new DownloadUserTask().execute(Methods.USER);
+        if (nick == null) {
+            new DownloadUserTask().execute(Methods.USER);
+        } else {
+            new DownloadUserTask().execute(Methods.NICK);
+        }
     }
 
     private void setUpActivity() {
@@ -63,12 +72,16 @@ public class UserActivity extends CodebitsActivity {
         mTvName = (TextView) findViewById(R.id.name);
         mTvKarmaPoints = (TextView) findViewById(R.id.karma_points);
         mTvBio = (TextView) findViewById(R.id.bio);
+        mLayout = (RelativeLayout) findViewById(R.id.layout);
+        mLayout.setVisibility(View.GONE); // hide while we don't have data
+        mIvAvatar = (ImageView) findViewById(R.id.avatar);
     }
 
     public void showUser(User user) {
         mTvName.setText(user.getName());
         mTvKarmaPoints.setText(user.getKarma());
         mTvBio.setText(user.getBio());
+        mLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -76,7 +89,7 @@ public class UserActivity extends CodebitsActivity {
         if (mMenu[itemPosition].equals("SCAN USER")) {
             Intent intent = new Intent("com.google.zxing.client.android.SCAN");
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, 0);
+            scanQrCode();
         } else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(Constants.AUTH_TOKEN, mToken);
@@ -85,7 +98,9 @@ public class UserActivity extends CodebitsActivity {
         return true;
     }
 
-    private class DownloadUserTask extends AsyncTask<String, Void, String> {
+    private class DownloadUserTask extends AsyncTask<String, Void, Void> {
+        private User user = null;
+        private Bitmap avatar = null;
 
         @Override
         protected void onPreExecute() {
@@ -94,56 +109,35 @@ public class UserActivity extends CodebitsActivity {
         }
 
         @Override
-        protected String doInBackground(String... urls) {
+        protected Void doInBackground(String... urls) {
             String result = null;
             try {
                 String url = urls[0];
                 if (token != null) {
-                    url += "/" + id + "?token=" + token;
+                    if (url.contains("/user")) {
+                        url += "/" + id + "?token=" + token;
+                    } else {
+                        url += "/" + nick + "?token=" + token;
+                    }
                 }
                 result = NetworkUtils.downloadUrl(url);
-            } catch (IOException e) {
+                this.user = new User(new JSONObject(result));
+                URL avatarUrl = new URL(this.user.getAvatarLarge());
+                this.avatar = BitmapFactory.decodeStream(avatarUrl.openConnection()
+                        .getInputStream());
+            } catch (Exception e) {
+                Log.d(TAG, "" + e.getMessage());
             }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            try {
-                showUser(new User(new JSONObject(result)));
-            } catch (JSONException e) {
-                Log.e(TAG, e.getMessage());
-            }
-            setProgressBarIndeterminateVisibility(false);
-        }
-    }
-
-    class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
-        private int data = 0;
-
-        public BitmapWorkerTask(ImageView imageView) {
-            // Use a WeakReference to ensure the ImageView can be garbage
-            // collected
-            imageViewReference = new WeakReference<ImageView>(imageView);
-        }
-
-        // Decode image in background.
-        @Override
-        protected Bitmap doInBackground(Integer... params) {
-            data = params[0];
             return null;
         }
 
-        // Once complete, see if ImageView is still around and set bitmap.
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (imageViewReference != null && bitmap != null) {
-                final ImageView imageView = imageViewReference.get();
-                if (imageView != null) {
-                    imageView.setImageBitmap(bitmap);
-                }
+        protected void onPostExecute(Void result) {
+            if (this.avatar != null) {
+                mIvAvatar.setImageBitmap(this.avatar);
             }
+            showUser(this.user);
+            setProgressBarIndeterminateVisibility(false);
         }
     }
 

@@ -59,4 +59,8 @@
     
     <string name="no_network_connection_toast">No network connection found</string>
     
+    <!-- Content descriptions -->
+    <string name="avatar">Avatar</string>
+    
+    
 </resources>

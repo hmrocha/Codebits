@@ -21,9 +21,9 @@ package net.henriquerocha.android.codebits.api;
 import java.io.IOException;
 
 import net.henriquerocha.android.codebits.NetworkUtils;
-import android.util.Log;
 
 public class Methods {
+    @SuppressWarnings("unused")
     private static final String TAG = Methods.class.getSimpleName();
 
     public static final String SERVICES_URL = "https://services.sapo.pt/Codebits";
@@ -32,6 +32,7 @@ public class Methods {
     public static final String CALL_UP_TALK = SERVICES_URL + "/calluptalk";
     public static final String CALL_DOWN_TALK = SERVICES_URL + "/calldowntalk";
     public static final String USER = SERVICES_URL + "/user";
+    public static final String NICK = SERVICES_URL + "/nick";
 
     /**
      * Auth token
@@ -92,7 +93,11 @@ public class Methods {
      */
     public static String user(int id, String token) throws IOException {
         String url = USER + "/" + id + "?token=" + token;
-        Log.d(TAG, "user: " + url);
+        return NetworkUtils.downloadUrl(url);
+    }
+
+    public static String user(String nick, String token) throws IOException {
+        String url = NICK + "/" + nick + "?token=" + token;
         return NetworkUtils.downloadUrl(url);
     }
 }

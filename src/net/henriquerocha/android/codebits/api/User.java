@@ -25,11 +25,13 @@ public class User {
     private String name;
     private String bio;
     private String karma;
+    private String avatar;
 
     public User(JSONObject jsonObject) throws JSONException {
         this.name = jsonObject.getString("name");
         this.bio = jsonObject.getString("bio");
         this.karma = jsonObject.getString("karma");
+        this.avatar = jsonObject.getString("avatar");
     }
 
     public String getName() {
@@ -43,4 +45,13 @@ public class User {
     public String getKarma() {
         return karma;
     }
+    
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getAvatarLarge() {
+        return avatar + "?s=200";
+    }
+
 }

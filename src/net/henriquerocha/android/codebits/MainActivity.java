@@ -43,7 +43,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends CodebitsActivity {
-    private static final String TAG = DownloadJsonTalksTask.class.getSimpleName();
+    private static final String TAG = "MainActivity";
 
     // private TextView textView;
     private ArrayList<Talk> talks;
@@ -141,41 +141,20 @@ public class MainActivity extends CodebitsActivity {
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                // Handle successful scan
-                Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format,
-                        Toast.LENGTH_LONG);
-                toast.show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // Handle cancel
-                Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
-                toast.show();
-
-            }
-        }
-    }
-    
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         if (mMenu[itemPosition].equals("SCAN USER")) {
-            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, 0);
-        } else if (mMenu[itemPosition].equals("PROFILE")) {        
+            scanQrCode();
+        } else if (mMenu[itemPosition].equals("PROFILE")) {
             Intent intent = new Intent(this, UserActivity.class);
             intent.putExtra(Constants.AUTH_TOKEN, mToken);
             startActivity(intent);
         }
-//        else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            intent.putExtra(Constants.AUTH_TOKEN, mToken);
-//            startActivity(intent);
-//        }
+        // else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
+        // Intent intent = new Intent(this, MainActivity.class);
+        // intent.putExtra(Constants.AUTH_TOKEN, mToken);
+        // startActivity(intent);
+        // }
         return true;
     }
-
 }

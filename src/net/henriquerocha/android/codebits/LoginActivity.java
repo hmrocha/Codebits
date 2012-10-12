@@ -42,7 +42,7 @@ public class LoginActivity extends SherlockActivity {
 
     private String token;
     private String id;
-    
+
     private TextView tvEmail;
     private TextView tvPassword;
     private TextView tvLoginFailed;
@@ -55,11 +55,11 @@ public class LoginActivity extends SherlockActivity {
         setContentView(R.layout.activity_login);
         setProgressBarIndeterminateVisibility(false);
         this.context = this;
-        
+
         this.tvEmail = (TextView) findViewById(R.id.et_email);
         this.tvPassword = (TextView) findViewById(R.id.et_password);
         this.tvLoginFailed = (TextView) findViewById(R.id.tv_login_failed);
-        
+
         SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
         this.tvEmail.setText(settings.getString(Constants.KEY_EMAIL, ""));
         this.tvPassword.setText(settings.getString(Constants.KEY_PASSWORD, ""));
@@ -85,7 +85,6 @@ public class LoginActivity extends SherlockActivity {
             try {
                 result = Methods.getToken(tvEmail.getText().toString(), tvPassword.getText()
                         .toString());
-                Log.d(DEBUG_TAG, "Methods.getToken: " + result);
             } catch (IOException e) {
                 Log.d(DEBUG_TAG, "DownloadTokenTask::doInBackground: " + e.getMessage());
             }
