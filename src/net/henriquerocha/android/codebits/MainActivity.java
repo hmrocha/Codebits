@@ -70,7 +70,7 @@ public class MainActivity extends CodebitsActivity {
             }
         });
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
@@ -81,6 +81,9 @@ public class MainActivity extends CodebitsActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+        case android.R.id.home:
+            mMenuDrawer.toggleMenu();
+            return true;
         case R.id.menu_sign_out:
             SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
             SharedPreferences.Editor editor = settings.edit();
@@ -141,20 +144,20 @@ public class MainActivity extends CodebitsActivity {
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (mMenu[itemPosition].equals("SCAN USER")) {
-            scanQrCode();
-        } else if (mMenu[itemPosition].equals("PROFILE")) {
-            Intent intent = new Intent(this, UserActivity.class);
-            intent.putExtra(Constants.AUTH_TOKEN, mToken);
-            startActivity(intent);
-        }
-        // else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
-        // Intent intent = new Intent(this, MainActivity.class);
-        // intent.putExtra(Constants.AUTH_TOKEN, mToken);
-        // startActivity(intent);
-        // }
-        return true;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+//        if (mMenu[itemPosition].equals("SCAN USER")) {
+//            scanQrCode();
+//        } else if (mMenu[itemPosition].equals("PROFILE")) {
+//            Intent intent = new Intent(this, UserActivity.class);
+//            intent.putExtra(Constants.AUTH_TOKEN, mToken);
+//            startActivity(intent);
+//        }
+//        // else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
+//        // Intent intent = new Intent(this, MainActivity.class);
+//        // intent.putExtra(Constants.AUTH_TOKEN, mToken);
+//        // startActivity(intent);
+//        // }
+//        return true;
+//    }
 }

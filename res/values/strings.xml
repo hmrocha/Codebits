@@ -21,7 +21,8 @@
     <string name="app_name">Codebits</string>
     <string name="call_for_talks">CALL FOR TALKS LIST</string>
     <string name="menu_sign_out">Sign out</string>
-
+    <string name="announce">Welcome to the SAPO Codebits VI app, your unnoficial companion to the SAPO Codebits conference taking place in Lisbon from November 15th to November 17th, 2012.</string>
+    
     <!-- Talk Description -->
     <string name="votes">votes</string>
     <string name="h2_talk_title">Talk title</string>

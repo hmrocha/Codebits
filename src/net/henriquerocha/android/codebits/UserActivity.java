@@ -25,7 +25,6 @@ import net.henriquerocha.android.codebits.api.User;
 
 import org.json.JSONObject;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +35,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.actionbarsherlock.view.MenuItem;
 
 public class UserActivity extends CodebitsActivity {
     private static final String TAG = "UserActivity";
@@ -59,7 +60,6 @@ public class UserActivity extends CodebitsActivity {
         SharedPreferences settings = getSharedPreferences(Constants.LOGIN_INFO, 0);
         id = settings.getString(Constants.KEY_USER_ID, "");
         nick = getIntent().getStringExtra(Constants.KEY_USER_NICK);
-        mActionBar.setSelectedNavigationItem(1);
         if (nick == null) {
             new DownloadUserTask().execute(Methods.USER);
         } else {
@@ -85,19 +85,29 @@ public class UserActivity extends CodebitsActivity {
     }
 
     @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (mMenu[itemPosition].equals("SCAN USER")) {
-            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            scanQrCode();
-        } else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra(Constants.AUTH_TOKEN, mToken);
-            startActivity(intent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            mMenuDrawer.toggleMenu();
+            return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
+    // @Override
+    // public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+    // if (mMenu[itemPosition].equals("SCAN USER")) {
+    // Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+    // intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+    // scanQrCode();
+    // } else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
+    // Intent intent = new Intent(this, MainActivity.class);
+    // intent.putExtra(Constants.AUTH_TOKEN, mToken);
+    // startActivity(intent);
+    // }
+    // return true;
+    // }
+    //
     private class DownloadUserTask extends AsyncTask<String, Void, Void> {
         private User user = null;
         private Bitmap avatar = null;

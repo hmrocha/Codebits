@@ -18,12 +18,12 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.henriquerocha.android.codebits"
-    android:versionCode="4"
-    android:versionName="0.3" >
+    android:versionCode="5"
+    android:versionName="0.4" >
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,7 +31,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.codebits" >
+        android:theme="@style/Theme.Codebits" >
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"

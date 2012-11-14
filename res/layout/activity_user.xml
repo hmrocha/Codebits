@@ -43,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_marginLeft="16dp"
             android:textColor="@color/orange_warning"
             android:textSize="18sp"
             android:textStyle="bold" />

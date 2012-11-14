@@ -25,9 +25,19 @@
     android:paddingRight="16dp" >
 
     <TextView
+        android:id="@+id/announce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/cb_white"
+        android:paddingBottom="@dimen/padding_large"
+        android:text="@string/announce" />
+
+    <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/announce"
         android:text="@string/label_email"
         android:textColor="@android:color/white" />
 

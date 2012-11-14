@@ -86,7 +86,7 @@ public class LauncherActivity extends Activity {
                 intent = new Intent(mContext, LoginActivity.class);
                 Log.d(TAG, "Going to login activity.");
             } else {
-                intent = new Intent(mContext, MainActivity.class);
+                intent = new Intent(mContext, UserActivity.class);
                 intent.putExtra(Constants.AUTH_TOKEN, mToken);
                 Log.d(TAG, "Going to main activity.");
             }
