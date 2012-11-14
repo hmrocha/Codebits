@@ -1,5 +1,6 @@
 package net.henriquerocha.android.codebits;
 
+import net.henriquerocha.android.codebits.ui.RedeemBadgeActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,11 +37,11 @@ public abstract class CodebitsActivity extends SherlockActivity implements OnNav
     @Override
     public abstract boolean onNavigationItemSelected(int itemPosition, long itemId);
 
-    protected void scanQrCode() {
+    protected void scanQrCode(int type) {
         Log.d(TAG, "scanQrCode");
         Intent intent = new Intent("com.google.zxing.client.android.SCAN");
         intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, type);
     }
 
     @Override
@@ -63,6 +64,11 @@ public abstract class CodebitsActivity extends SherlockActivity implements OnNav
             }
             if (resultCode == RESULT_CANCELED) {
             }
+        } else if (resultCode == 2) {
+            Intent intent = new Intent(this, RedeemBadgeActivity.class);
+            intent.putExtra(Constants.KEY_USER_NICK, nick);
+            intent.putExtra(Constants.AUTH_TOKEN, mToken);
+            startActivity(intent);            
         }
     }
 }

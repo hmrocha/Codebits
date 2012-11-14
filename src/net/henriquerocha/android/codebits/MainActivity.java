@@ -144,17 +144,14 @@ public class MainActivity extends CodebitsActivity {
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         if (mMenu[itemPosition].equals("SCAN USER")) {
-            scanQrCode();
+            scanQrCode(1);
         } else if (mMenu[itemPosition].equals("PROFILE")) {
             Intent intent = new Intent(this, UserActivity.class);
             intent.putExtra(Constants.AUTH_TOKEN, mToken);
             startActivity(intent);
+        } else if (mMenu[itemPosition].equals("REDEEM BADGE")) {
+            scanQrCode(2);
         }
-        // else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
-        // Intent intent = new Intent(this, MainActivity.class);
-        // intent.putExtra(Constants.AUTH_TOKEN, mToken);
-        // startActivity(intent);
-        // }
         return true;
     }
 }

@@ -89,7 +89,7 @@ public class UserActivity extends CodebitsActivity {
         if (mMenu[itemPosition].equals("SCAN USER")) {
             Intent intent = new Intent("com.google.zxing.client.android.SCAN");
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            scanQrCode();
+            scanQrCode(1);
         } else if (mMenu[itemPosition].equals("CALL FOR TALKS")) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(Constants.AUTH_TOKEN, mToken);
